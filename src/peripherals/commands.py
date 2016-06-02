@@ -34,4 +34,7 @@ class ToggleLed(peripheral.Command):
 
 class ButtonIs(peripheral.Command):
     def __init__(self):
-        super().__init__('read')
+        super().__init__('button_is')
+
+    def __call__(self, *args, **kwargs):
+        print("BUTTON IS: ", *args, **kwargs)
