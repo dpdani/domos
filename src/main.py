@@ -23,11 +23,13 @@ def main():
             inp = input("Please choose a peripheral to work with ('list'): ")
             if inp in ('exit', 'quit', 'q'):
                 break
-            elif inp in [x[1] for x in peripheral_names.values()]:
-                pass
+            elif inp in [x[0] for x in peripheral_names.values()]:
+                print("bella.")
             elif inp == 'list':
-                for name in [x[1] for x in peripheral_names.values()]:
+                for name in [x[0] for x in peripheral_names.values()]:
                     print(name)
+            else:
+                print("Couldn't find peripheral {}".format(inp))
 
 
 

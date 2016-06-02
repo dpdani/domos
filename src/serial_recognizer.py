@@ -26,6 +26,7 @@ def recognize_serial(ser):
                 read += char
             if char == b'\n':
                 print(read)
+                break
     _, model_code, firmware_version = tuple(read.split(b' '))  # first is "info"
     model_code = model_code.decode('utf-8')
     firmware_version = int(firmware_version)
