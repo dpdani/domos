@@ -19,17 +19,18 @@ def recognize_serial(ser):
     ser.write(b"info\n")
     char = None
     read = b""
-    while char != b'\n':
-        char = ser.read(1)
-        if char in allowed_chars and char not in unallowed_chars:
-            read += char
-        if char == b'\n':
-            print(read)
-            if read == b'start':
-                ser.write(b"info\n")
-            if not read.startswith(b'info'):
-                read = b''
-                char = b''
+    while not read.startswith(b'info'):
+        while char != b'\n':
+            char = ser.read(1)
+            if char in allowed_chars and char not in unallowed_chars:
+                read += char
+            if char == b'\n':
+                print(read)
+                if read == b'start':
+                    ser.write(b"info\n")
+                if not read.startswith(b'info'):
+                    read = b''
+                    char = b''
     _, model_code, firmware_version = tuple(read.split(b' '))  # first is "info"
     model_code = model_code.decode('utf-8')
     firmware_version = int(firmware_version)
