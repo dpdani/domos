@@ -8,5 +8,5 @@ class TEST001(peripheral.Peripheral):
         commands.UnrecognizedCommand(),
         commands.Info(),
         commands.ToggleLed(),
-        commands.ReadButton(),
+        commands.ButtonIs(),
     ]
