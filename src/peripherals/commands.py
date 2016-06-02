@@ -47,3 +47,21 @@ class ButtonPressed(peripheral.Command):
     def __call__(self, *args, **kwargs):
         print("BUTTON PRESSED. toggling led.")
         kwargs['per'].write("toggle_led")
+
+
+class DoorOpened(peripheral.Command):
+    def __init__(self):
+        super().__init__('door_opened')
+
+    def __call__(self, *args, **kwargs):
+        print("DOOR OPENED. toggling led.")
+        kwargs['per'].write("toggle_led")
+
+
+class DoorClosed(peripheral.Command):
+    def __init__(self):
+        super().__init__('door_closed')
+
+    def __call__(self, *args, **kwargs):
+        print("DOOR CLOSED. toggling led.")
+        kwargs['per'].write("toggle_led")
