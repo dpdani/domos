@@ -36,7 +36,7 @@ def listen_port(port, stop_event, serials, baudrate=DEFAULT_BAUDRATE):
 
 
 
-if __name__ == '__main__':
+def test():
     print("--- TESTING MODULE 'ports_listener.py'")
     threads, serials, stop_event = start_listening()
     _threads, _serials, _stop_event = None, None, None
@@ -47,3 +47,7 @@ if __name__ == '__main__':
         if len(serials) > 0:
             stop_event.set()
             break
+
+
+if __name__ == '__main__':
+    test()

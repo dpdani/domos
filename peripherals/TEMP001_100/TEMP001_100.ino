@@ -42,10 +42,12 @@ String readCommand() {
   while(Serial.available()>0) {//Serial.available
     //Serial.write("Waiting for command...\n");
     char c = (char)Serial.read();
-    Serial.write(c);
-    if(c == '\n')
+    Serial.write('?');
+    if(c == '\n') {
+      Serial.write('\n');
       return command;
-   if (int(c) != 255 || c != '\xff')
+    }
+    if (int(c) != 255 || c != '\xff')
       command += c;
   }
 }

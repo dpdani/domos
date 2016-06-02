@@ -1,5 +1,11 @@
-import peripheral
+import peripherals.peripheral as peripheral
+import peripherals.commands as commands
 
 
 class TEMP001(peripheral.Peripheral):
-    supported_firmware = [100]
+    supported_firmwares = [100]
+    commands = [
+        commands.UnrecognizedCommand(),
+        commands.Info(),
+        commands.Temperature(),
+    ]
