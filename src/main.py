@@ -24,12 +24,20 @@ def main():
             if inp in ('exit', 'quit', 'q'):
                 break
             elif inp in [x[0] for x in peripheral_names.values()]:
-                print("bella.")
+                for item in peripheral_names.items():
+                    if item[1][0] == inp:
+                        peripheral_in_use = item[0]
             elif inp == 'list':
                 for name in [x[0] for x in peripheral_names.values()]:
                     print(name)
             else:
                 print("Couldn't find peripheral {}".format(inp))
+        else:
+            inp = input("{}$ ".format(peripheral_names[peripheral_in_use][1]))
+            if inp in ('exit', 'quit', 'q'):
+                peripheral_in_use = None
+            else:
+                peripheral_names[peripheral_in_use][1].write(inp)
 
 
 
