@@ -16,6 +16,7 @@ class Peripheral(object):
         self.create_read_thread()
         if hasattr(self, "commands_firmware_"+str(firmware)):  # use firmware-specific commands if provided
             self.commands = getattr(self, "commands_firmware_"+str(firmware))
+        self.start_reading()
 
     def start_reading(self):
         try:
