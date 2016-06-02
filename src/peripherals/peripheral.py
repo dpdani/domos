@@ -50,9 +50,14 @@ class Peripheral(object):
         splt = command.split()
         command_name = splt[0]
         command_args = splt[1:]
+        called = False
         for com in self.commands:
             if com.name == command_name:
                 com(*command_args)
+                called = True
+        if not called:
+            print("Couldn't find command handler for {}".format(command))
+
 
     def write(self, string):
         if not string.endswith('\n'):
