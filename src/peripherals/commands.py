@@ -6,6 +6,7 @@ class UnrecognizedCommand(peripheral.Command):
         super().__init__('unrecognized_command')
 
     def __call__(self, *args, **kwargs):
+        del kwargs['per']
         print("UNRECOGNIZED COMMAND: ", *args, **kwargs)
 
 class Info(peripheral.Command):
@@ -13,6 +14,7 @@ class Info(peripheral.Command):
         super().__init__('info')
 
     def __call__(self, *args, **kwargs):
+        del kwargs['per']
         print("INFO COMMAND: ", *args, **kwargs)
 
 
@@ -21,6 +23,7 @@ class Temperature(peripheral.Command):
         super().__init__('temperature')
 
     def __call__(self, *args, **kwargs):
+        del kwargs['per']
         print("TEMPERATURE: ", *args, **kwargs)
 
 
@@ -37,6 +40,7 @@ class ButtonIs(peripheral.Command):
         super().__init__('button_is')
 
     def __call__(self, *args, **kwargs):
+        del kwargs['per']
         print("BUTTON IS: ", *args, **kwargs)
 
 
