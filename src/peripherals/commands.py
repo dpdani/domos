@@ -22,3 +22,16 @@ class Temperature(peripheral.Command):
 
     def __call__(self, *args, **kwargs):
         print("TEMPERATURE: ", *args, **kwargs)
+
+
+class ToggleLed(peripheral.Command):
+    def __init__(self):
+        super().__init__('toggle_led')
+
+    def __call__(self, *args, **kwargs):
+        print("TOGGLE LED.")
+
+
+class ButtonIs(peripheral.Command):
+    def __init__(self):
+        super().__init__('read')

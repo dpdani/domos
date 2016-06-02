@@ -39,8 +39,7 @@ void executeCommand(String command) {
 String readCommand() {
   Serial.write("#");
   String command = "";
-  while(Serial.available()>0) {//Serial.available
-    //Serial.write("Waiting for command...\n");
+  while(Serial.available()>0) {
     char c = (char)Serial.read();
     Serial.write('?');
     if(c == '\n') {

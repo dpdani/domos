@@ -1,6 +1,14 @@
 import serial
 import peripherals
 
+allowed_chars = [
+    chr(x).encode() for x in range(32, 126)
+]
+
+unallowed_chars = [
+    b'?', b'#', b'\n', b'\x00'
+]
+
 
 class UnknownPeripheralError(Exception):
     def __init__(self, model_code):
@@ -13,7 +21,7 @@ def recognize_serial(ser):
     read = b""
     while char != b'\n':
         char = ser.read(1)
-        if char not in (b'?', b'#', b'\n', b'\x00'):
+        if char in allowed_chars and char not in unallowed_chars:
             read += char
         if char == b'\n':
             print(read)
