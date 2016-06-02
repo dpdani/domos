@@ -53,7 +53,7 @@ class Peripheral(object):
         called = False
         for com in self.commands:
             if com.name == command_name:
-                com(*command_args)
+                com(*command_args, per=self)
                 called = True
         if not called:
             print("Couldn't find command handler for {}".format(command))

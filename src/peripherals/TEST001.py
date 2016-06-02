@@ -9,4 +9,5 @@ class TEST001(peripheral.Peripheral):
         commands.Info(),
         commands.ToggleLed(),
         commands.ButtonIs(),
+        commands.ButtonPressed(),
     ]

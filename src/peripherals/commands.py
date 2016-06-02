@@ -38,3 +38,12 @@ class ButtonIs(peripheral.Command):
 
     def __call__(self, *args, **kwargs):
         print("BUTTON IS: ", *args, **kwargs)
+
+
+class ButtonPressed(peripheral.Command):
+    def __init__(self):
+        super().__init__('button_pressed')
+
+    def __call__(self, *args, **kwargs):
+        print("BUTTON PRESSED. toggling led.")
+        kwargs['per'].write("toggle_led")
