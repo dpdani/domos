@@ -7,7 +7,6 @@ boolean stringComplete = false;
 void setup() {
   pinMode(7, INPUT);    //button luce
   pinMode(8, INPUT);    //button porta
-  pinMode(14,OUTPUT);    //check luce
   
   pinMode(13, OUTPUT);  //led allarme
   pinMode(9, OUTPUT);   //buzzer allarme
@@ -21,10 +20,9 @@ void setup() {
 
 }
 int d=0;
-
+int z=0;
+int y=0;
 void loop() {
- 
-  Serial.write("starting loop...\n");
     String command = readCommand();
     if(command.length() > 1)
     executeCommand(command);
@@ -65,17 +63,16 @@ void executeCommand(String command) {
 
 
 String readCommand() {
-  Serial.write("salve\n");
   // supposes serial to be available
   String command = "";
-  while(1)
+  doorCheck();
   while(Serial.available()>0) {//Serial.available
     //Serial.write("Waiting for command...\n");
     char c = (char)Serial.read();
     Serial.write(c);
     if(c == '\n')
       return command;
-   if (int(c) != 255 || c != '\xff')
+   if (int(c) <= 125 || int(c) >= 32)
       command += c;
   }
 }
@@ -93,15 +90,17 @@ String readCommand() {
 }
 */
 int Button(){
-    if(digitalRead(8)==HIGH)
+    if(digitalRead(7)==HIGH && y==0)
        {
-         digitalWrite(14,HIGH);
-       return 1;
+         Serial.write("button_pressed\n");
+         y=1;
        }
-    else {
-       digitalWrite(14,LOW);
-       return 0;
-    }
+         
+    else if(digitalRead(7)==LOW && y==1)
+       {
+         y=0;
+       }
+    return y;
   }
   
 
@@ -121,6 +120,16 @@ void Intruder(){
   tone(9,4000);
   delay(500);
   noTone(9);
+}
+}
+void doorCheck(){
+if(digitalRead(8)==LOW && z==0){
+Serial.write("door_opened\n");
+z=1;
+}
+else if(digitalRead(8)==HIGH && z==1){
+Serial.write("door_closed\n");
+z=0;
 }
 }
 
