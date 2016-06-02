@@ -16,18 +16,16 @@ class UnknownPeripheralError(Exception):
 
 
 def recognize_serial(ser):
-    ser.write(b"info\n")
     char = None
     read = b""
     while not read.startswith(b'info'):
+        ser.write(b"info\n")
         while char != b'\n':
             char = ser.read(1)
             if char in allowed_chars and char not in unallowed_chars:
                 read += char
             if char == b'\n':
                 print(read)
-                if read == b'start':
-                    ser.write(b"info\n")
                 if not read.startswith(b'info'):
                     read = b''
                     char = b''
