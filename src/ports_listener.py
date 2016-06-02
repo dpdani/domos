@@ -1,15 +1,22 @@
 import serial
+import serial.tools.list_ports
 import threading
 
 import time
 
 DEFAULT_BAUDRATE = 9600
 DEFAULT_PORTS = [
-    'COM1',
-    'COM2',
-    'COM3',
-    'COM4',
+    'ttyACM0',
+    'ttyACM1',
+    'ttyACM2',
+    'ttyAMA0',
+    'ttyS0',
+    'serial1',
+    'ptmx',
+    'tty',
+    'tty1',
 ]
+DEFAULT_PORTS = [x[0] for x in serial.tools.list_ports.comports()]
 
 
 def start_listening(ports=DEFAULT_PORTS):

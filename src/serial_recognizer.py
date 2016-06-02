@@ -33,6 +33,6 @@ def recognize_serial(ser):
         raise UnknownPeripheralError(model_code)
 
 
-def shish():
-    ser = serial.Serial('COM3', 9600)
+def shish(asd='7'):
+    ser = serial.Serial('/dev/ttyACM'+asd, 9600)
     return recognize_serial(ser)
