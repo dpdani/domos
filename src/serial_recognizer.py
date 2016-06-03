@@ -21,14 +21,14 @@ def keep_serials_updated(serials, peripherals):
     pass
 
 
-def recognize_serial(ser):
+def _recognize_serial(ser):
     per = peripheral.NotYetRecognizedPeripheral()
     thread = threading.Thread(target=_recognize_serial, args=(ser, per), name="Thread recognizing serial {}".format(ser))
     thread.start()
     return [per]
 
 
-def _recognize_serial(ser, per):
+def recognize_serial(ser):
     char = None
     read = b""
     while not read.startswith(b'info'):
@@ -45,8 +45,7 @@ def _recognize_serial(ser, per):
     firmware_version = int(firmware_version)
     try:
         exec("from peripherals import {} as periph".format(model_code), locals(), globals())
-        per = getattr(periph, model_code)(ser, firmware_version)
-        return
+        return getattr(periph, model_code)(ser, firmware_version)
     except ImportError:
         raise UnknownPeripheralError(model_code)
 
