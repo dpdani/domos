@@ -5,17 +5,19 @@ from serial_recognizer import recognize_serial
 def main():
     print("Waiting for peripherals to connect...")
     threads, serials, stop_event = ports_listener.loop_start_listening()
-    peripherals = []
-    for serial in serials:
-        peripherals.append(recognize_serial(serial))
 
     peripheral_in_use = None
-    peripheral_names = {}
-    i = 0
-    for peripheral in peripherals:
-        peripheral_names.update({i: (peripheral[0].__class__.__name__, peripheral[0])})
+    peripheral_names = update_peripherals(serials)
+    _serials = serials.copy()
 
     while True:
+        if _serials != serials:
+            new_peripherals = update_peripherals(serials - _serials)
+            for periph in new_peripherals.values():
+                peripheral_names.update({
+                    len(peripheral_names): periph
+                })  # ID: periph
+
         if peripheral_in_use is None:
             inp = input("Please choose a peripheral to work with ('list'): ")
             if inp in ('exit', 'quit', 'q'):
@@ -34,6 +36,17 @@ def main():
                 peripheral_in_use = None
             else:
                 peripheral_names[peripheral_in_use][1].write(inp)
+
+
+def update_peripherals(serials):
+    peripherals = []
+    for serial in serials:
+        peripherals.append(recognize_serial(serial))
+    peripheral_names = {}
+    i = 0
+    for peripheral in peripherals:
+        peripheral_names.update({i: (peripheral[0].__class__.__name__, peripheral[0])})
+    return peripheral_names
 
 
 
