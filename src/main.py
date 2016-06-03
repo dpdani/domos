@@ -45,7 +45,7 @@ def update_peripherals(serials):
     peripheral_names = {}
     i = 0
     for peripheral in peripherals:
-        peripheral_names.update({i: (peripheral[0].__class__.__name__, peripheral[0])})
+        peripheral_names.update({i: (peripheral.__class__.__name__, peripheral)})
     return peripheral_names
 
 
