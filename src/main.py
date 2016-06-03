@@ -29,7 +29,9 @@ def main():
                 for _id, name in  [(x, y[0]) for x, y in peripheral_names.items()]:
                     print("{}--{}".format(_id, name))
             else:
-                print("Couldn't find peripheral {}".format(inp))
+                print("Couldn't find peripheral {}.\nHere's a list of peripherals:".format(inp))
+                for _id, name in  [(x, y[0]) for x, y in peripheral_names.items()]:
+                    print("{}--{}".format(_id, name))
         else:
             inp = input("{}--{}$ ".format(peripheral_in_use, peripheral_names[peripheral_in_use][0]))
             if inp in ('exit', 'quit', 'q'):
