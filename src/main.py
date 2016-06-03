@@ -33,7 +33,7 @@ def main():
             else:
                 print("Couldn't find peripheral {}".format(inp))
         else:
-            inp = input("{}$ ".format(peripheral_names[peripheral_in_use][1]))
+            inp = input("{}$ ".format(peripheral_names[peripheral_in_use][0]))
             if inp in ('exit', 'quit', 'q'):
                 peripheral_in_use = None
             else:
