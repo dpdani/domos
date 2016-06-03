@@ -1,5 +1,7 @@
 import serial
 import peripherals
+from peripherals import peripheral
+import threading
 
 allowed_chars = [
     chr(x).encode() for x in range(32, 126)
@@ -16,6 +18,13 @@ class UnknownPeripheralError(Exception):
 
 
 def recognize_serial(ser):
+    per = peripheral.NotYetRecognizedPeripheral()
+    thread = threading.Thread(target=_recognize_serial, args=(ser, per), name="Thread recognizing serial {}".format(ser))
+    thread.start()
+    return per
+
+
+def _recognize_serial(ser, per):
     char = None
     read = b""
     while not read.startswith(b'info'):
@@ -31,8 +40,8 @@ def recognize_serial(ser):
     model_code = model_code.decode('utf-8')
     firmware_version = int(firmware_version)
     try:
-        exec("from peripherals import {} as per".format(model_code), locals(), globals())
-        return getattr(per, model_code)(ser, firmware_version)
+        exec("from peripherals import {} as periph".format(model_code), locals(), globals())
+        return getattr(periph, model_code)(ser, firmware_version)
     except ImportError:
         raise UnknownPeripheralError(model_code)
 

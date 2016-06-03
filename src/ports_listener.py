@@ -26,18 +26,20 @@ def loop_start_listening():
     threads, serials, stop_event = start_listening()
 
     def listen_loop(threads, serials, stop_event):
-        old_available_ports = get_pèorts()
+        old_available_ports = get_ports()
         while not stop_event.is_set():
             if old_available_ports != get_ports():
                 new_threads, new_serials, _ = start_listening(stop_event)
                 for new_thread in new_threads:
-                    threads.append(new_thread)
+                    if new_thread not in threads:
+                        threads.append(new_thread)
                 for new_serial in new_serials:
-                    serials.append(new_serial)
+                    if new_serial not in serials:
+                        serials.append(new_serial)
                 old_available_ports = get_ports()
 
     thread = threading.Thread(target=listen_loop, args=(threads, serials, stop_event),
-                                  name='Main listening thread')
+                              name='Main listening thread')
     thread.start()
     threads.append(thread)
     return threads, serials, stop_event

@@ -66,6 +66,24 @@ class Peripheral(object):
         self.serial.write(string.encode('utf-8'))
 
 
+class NotYetRecognizedPeripheral(Peripheral):
+    supported_firmwares = [None]
+    def __init__(self):
+        super().__init__(None, None)
+
+    def start_reading(self):
+        pass
+
+    def _read(self):
+        pass
+
+    def write(self, string):
+        pass
+
+    def close(self):
+        pass
+
+
 class Command(object):
     def __init__(self, name):
         self.name = name
