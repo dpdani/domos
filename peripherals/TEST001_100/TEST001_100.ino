@@ -43,8 +43,8 @@ void executeCommand(String command) {
     Serial.write("done.\n");
   }
   else if (command == "read_button") {
-    int b = Button();
-    sprintf(buffer, "button_is %d\n", b);
+    int y = Button();
+    sprintf(buffer, "button_is %d\n", y);
     Serial.write(buffer);
   }
   else if (command== "info")
