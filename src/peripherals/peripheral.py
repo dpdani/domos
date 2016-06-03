@@ -77,6 +77,9 @@ class NotYetRecognizedPeripheral(Peripheral):
     def _read(self):
         pass
 
+    def create_read_thread(self):
+        pass
+
     def write(self, string):
         pass
 
