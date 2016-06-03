@@ -22,7 +22,7 @@ DEFAULT_PORTS = [x[0] for x in serial.tools.list_ports.comports()]
 def loop_start_listening():
     threads, serials, stop_event = start_listening()
 
-    def listen_loop(stop_event):
+    def listen_loop(threads, serials, stop_event):
         old_available_ports = serial.tools.list_ports.comports()
         while not stop_event.is_set():
             if old_available_ports != serial.tools.list_ports.comports():
@@ -33,7 +33,7 @@ def loop_start_listening():
                     serials.append(new_serial)
                 old_available_ports = serial.tools.list_ports.comports()
 
-    thread = threading.Thread(target=listen_loop, args=(stop_event,),
+    thread = threading.Thread(target=listen_loop, args=(threads, serials, stop_event),
                                   name='Main listening thread')
     thread.start()
     threads.append(thread)
