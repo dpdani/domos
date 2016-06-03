@@ -3,7 +3,7 @@ from serial_recognizer import recognize_serial
 
 
 def main():
-    threads, serials, stop_event = ports_listener.start_listening()
+    threads, serials, stop_event = ports_listener.loop_start_listening()
     print("Waiting for peripherals to connect...")
     while True:
         if len(serials) > 0:
@@ -35,6 +35,7 @@ def main():
         else:
             inp = input("{}$ ".format(peripheral_names[peripheral_in_use][0]))
             if inp in ('exit', 'quit', 'q'):
+                stop_event.set()
                 peripheral_in_use = None
             else:
                 peripheral_names[peripheral_in_use][1].write(inp)
