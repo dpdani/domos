@@ -17,11 +17,15 @@ class UnknownPeripheralError(Exception):
         super().__init__("cannot find peripheral named '{}'".format(model_code))
 
 
+def keep_serials_updated(serials, peripherals):
+    pass
+
+
 def recognize_serial(ser):
     per = peripheral.NotYetRecognizedPeripheral()
     thread = threading.Thread(target=_recognize_serial, args=(ser, per), name="Thread recognizing serial {}".format(ser))
     thread.start()
-    return per
+    return [per]
 
 
 def _recognize_serial(ser, per):
