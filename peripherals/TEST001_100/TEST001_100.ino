@@ -125,10 +125,12 @@ void Intruder(){
 void doorCheck(){
 if(digitalRead(8)==LOW && z==0){
 Serial.write("door_opened\n");
+digitalWrite(13,HIGH);
 z=1;
 }
 else if(digitalRead(8)==HIGH && z==1){
 Serial.write("door_closed\n");
+digitalWrite(13,LOW);
 z=0;
 }
 }
