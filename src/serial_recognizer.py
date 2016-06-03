@@ -41,7 +41,8 @@ def _recognize_serial(ser, per):
     firmware_version = int(firmware_version)
     try:
         exec("from peripherals import {} as periph".format(model_code), locals(), globals())
-        return getattr(periph, model_code)(ser, firmware_version)
+        per = getattr(periph, model_code)(ser, firmware_version)
+        return
     except ImportError:
         raise UnknownPeripheralError(model_code)
 
